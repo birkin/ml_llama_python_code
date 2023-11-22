@@ -4,6 +4,8 @@
 
 To go through Chris Hayes' "[Python with Stanford Alpaca and Vicuna 13B AI models - A llama-cpp-python Tutorial!](https://www.youtube.com/watch?v=-BidzsQYZM4)"
 
+---
+
 
 # Install notes
 
@@ -62,3 +64,33 @@ To go through Chris Hayes' "[Python with Stanford Alpaca and Vicuna 13B AI model
 - TODO: the `llama.cpp/issues/3708` thread and other stuff indicates that modern versions of `llama-ccp-python`... maybe don't work on `.bin` files? But instead expect `.gguf` files? (New to all this.) So after I get this working, perhaps explore newer versions of `llama-ccp-python` (this is the nice benefit of being able to have multiple venvs and just point the `env` simlink to the active one) with newer models. For reference, [a gpt4 overview of the gguf format](https://chat.openai.com/share/6826ff67-432e-4e04-99b4-6e9be08242bd).
 
 ---
+
+
+# Usage
+
+- `time python ./main.py`
+
+## Output...
+
+```
+[22/Nov/2023 12:55:35] DEBUG [main-<module>()::28] output: {
+  "id": "cmpl-03b92ca8-2d67-4acc-b6f4-2964398e2bd2",
+  "object": "text_completion",
+  "created": 1700675728,
+  "model": "../models/ggml-vicuna-13b-4bit-rev1.bin",
+  "choices": [
+    {
+      "text": "Question: Who is Ada Lovelace? Answer: Ada Lovelace was an English mathematician and writer, born in 1815. She is known for her work on Charles Babbage's early mechanical general-purpose computer, the Analytical Engine. She is considered to be the world's first computer programmer.",
+      "index": 0,
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 12,
+    "completion_tokens": 62,
+    "total_tokens": 74
+  }
+}
+python ./main.py  33.89s user 0.72s system 486% cpu 7.117 total
+```

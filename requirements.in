@@ -1,1 +1,5 @@
-llama-cpp-python==0.2.19
+## version as of 2024-Nov-22
+# llama-cpp-python==0.2.19
+
+
+llama-cpp-python==0.1.39

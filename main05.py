@@ -69,6 +69,14 @@ if __name__ == '__main__':
     log.debug( f'args: {args}' )
     ## get json-string
     text_as_json = args.text_as_json
+    ## validate
+    try:
+        if text_as_json:
+            json.loads( text_as_json )
+        else:
+            log.debug( 'no text_as_json found' )
+    except Exception as e:
+        raise Exception( 'input does not appear to be valid json' )
     log.debug( f'text_as_json arg: {text_as_json}' )
     if text_as_json == None:
         test_dct = { 'text_to_summarize': TEST_STRING }

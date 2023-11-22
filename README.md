@@ -72,7 +72,38 @@ To go through Chris Hayes' "[Python with Stanford Alpaca and Vicuna 13B AI model
 (or other `main__.py` file)
 
 
+## main04.py output
+
+Goal: experiment with summarization.
+
+```
+[22/Nov/2023 15:11:06] DEBUG [main04-<module>()::56] output, ``{'choices': [{'finish_reason': 'length',
+              'index': 0,
+              'message': {'content': ' The text is a speech given by President '
+                                     'Barack Obama after his re-election in '
+                                     '2012. In the speech, Obama thanks his '
+                                     'supporters and expresses his desire to '
+                                     'work with Mitt Romney and their teams to '
+                                     'move forward as one nation. He '
+                                     'acknowledges that while they may have '
+                                     'had differences, they both share a '
+                                     'commitment to certain hopes for '
+                                     "America's future, such as education, "
+                                     'innovation, and a strong military. Obama '
+                                     'believes that',
+                          'role': 'assistant'}}],
+ 'created': 1700683764,
+ 'id': 'chatcmpl-898cf652-ce58-4f9f-aaa7-7cd1445b787b',
+ 'model': '../models/ggml-vicuna-13b-4bit-rev1.bin',
+ 'object': 'chat.completion',
+ 'usage': {'completion_tokens': 100,
+           'prompt_tokens': 1951,
+           'total_tokens': 2051}}``
+```
+
 ## main03.py output
+
+Goal: experiment with regular output text.
 
 ```
 [22/Nov/2023 14:14:50] DEBUG [main03-<module>()::46] output, ``{'choices': [{'finish_reason': 'length',
@@ -100,6 +131,8 @@ To go through Chris Hayes' "[Python with Stanford Alpaca and Vicuna 13B AI model
 
 ## main02.py output
 
+Goal: just following video tutorial.
+
 ```
 [22/Nov/2023 13:45:48] DEBUG [main02-<module>()::34] text, `` Ada``
 [22/Nov/2023 13:45:48] DEBUG [main02-<module>()::34] text, `` Lov``
@@ -118,6 +151,8 @@ To go through Chris Hayes' "[Python with Stanford Alpaca and Vicuna 13B AI model
 
 
 ## main01.py output
+
+Goal: just followign video tutorial.
 
 ```
 [22/Nov/2023 12:55:35] DEBUG [main-<module>()::28] output: {

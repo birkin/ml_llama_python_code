@@ -72,6 +72,32 @@ To go through Chris Hayes' "[Python with Stanford Alpaca and Vicuna 13B AI model
 (or other `main__.py` file)
 
 
+## main03.py output
+
+```
+[22/Nov/2023 14:14:50] DEBUG [main03-<module>()::46] output, ``{'choices': [{'finish_reason': 'length',
+              'index': 0,
+              'message': {'content': ' Ada Lovelace was a British '
+                                     'mathematician and writer, born in 1815. '
+                                     'She is best known for her work on '
+                                     "Charles Babbage's early mechanical "
+                                     'general-purpose computer, the Analytical '
+                                     'Engine. Lovelace is credited with '
+                                     'writing the first computer program, '
+                                     'which was designed to calculate the '
+                                     'Bernoulli numbers. She was also a '
+                                     'prolific writer and published several '
+                                     'books, including a translation of the '
+                                     'Italian novel "The Betrothed"',
+                          'role': 'assistant'}}],
+ 'created': 1700680479,
+ 'id': 'chatcmpl-389e00aa-52c0-4de0-8522-460f076dd81a',
+ 'model': '../models/ggml-vicuna-13b-4bit-rev1.bin',
+ 'object': 'chat.completion',
+ 'usage': {'completion_tokens': 100, 'prompt_tokens': 20, 'total_tokens': 120}}``
+```
+
+
 ## main02.py output
 
 ```

@@ -59,4 +59,6 @@ To go through Chris Hayes' "[Python with Stanford Alpaca and Vicuna 13B AI model
 
     Ok, that worked! Thanks `spheres5531`!
 
+- TODO: the `llama.cpp/issues/3708` thread and other stuff indicates that modern versions of `llama-ccp-python`... maybe don't work on `.bin` files? But instead expect `.gguf` files? (New to all this.) So after I get this working, perhaps explore newer versions of `llama-ccp-python` (this is the nice benefit of being able to have multiple venvs and just point the `env` simlink to the active one) with newer models. For reference, [a gpt4 overview of the gguf format](https://chat.openai.com/share/6826ff67-432e-4e04-99b4-6e9be08242bd).
+
 ---

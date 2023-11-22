@@ -68,9 +68,30 @@ To go through Chris Hayes' "[Python with Stanford Alpaca and Vicuna 13B AI model
 
 # Usage
 
-- `time python ./main.py`
+`time python ./main01.py`
+(or other `main__.py` file)
 
-## Output...
+
+## main02.py output
+
+```
+[22/Nov/2023 13:45:48] DEBUG [main02-<module>()::34] text, `` Ada``
+[22/Nov/2023 13:45:48] DEBUG [main02-<module>()::34] text, `` Lov``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, ``el``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, ``ace``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, `` was``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, `` an``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, `` English``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, `` math``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, ``ematic``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, ``ian``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, `` and``
+[22/Nov/2023 13:45:49] DEBUG [main02-<module>()::34] text, `` writer``
+...etc...
+```
+
+
+## main01.py output
 
 ```
 [22/Nov/2023 12:55:35] DEBUG [main-<module>()::28] output: {

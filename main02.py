@@ -1,4 +1,8 @@
-import json, logging
+"""
+Code from about 9:40 through 11:30 of video.
+"""
+
+import copy, json, logging
 from llama_cpp import Llama
 
 logging.basicConfig(
@@ -15,14 +19,16 @@ log.debug( 'model loaded' )
 
 ## run model --------------------------------------------------------
 log.debug( 'running model' )
-output = llm( 
+stream = llm( 
     'Question: Who is Ada Lovelace? Answer:',
     max_tokens=100,
     temperature=0.8,
     stop=['\n', 'Question:', 'Q:'],
-    echo=True,
+    stream=True,
 )
 
 ## show output ------------------------------------------------------
-jsn = json.dumps( output, indent=2)
-log.debug( f'output: {jsn}' )
+for output in stream:
+    completion_fragment = copy.deepcopy( output )
+    txt = completion_fragment['choices'][0]['text']
+    log.debug( f'text, ``{txt}``' )

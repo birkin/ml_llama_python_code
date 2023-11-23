@@ -19,12 +19,6 @@ Thank you so much. Tonight, more than 200 years after a former colony won the ri
 '''
 
 
-## load model -------------------------------------------------------
-log.debug( 'loading model' )
-llm = Llama( 
-    model_path='../models/ggml-vicuna-13b-4bit-rev1.bin',
-    n_ctx=4000 )
-log.debug( 'model loaded' )
 
 
 ## run model --------------------------------------------------------
@@ -52,35 +46,91 @@ log.debug( 'model loaded' )
 # ## show output ------------------------------------------------------
 # log.debug( f'output, ``{pprint.pformat(output)}``' )
 
-
+## manager function -------------------------------------------------
 def summarize_text( text_as_json: str ) -> dict:
     """ Manages summarization.
         Called by dundermain. """
-    summarize_text_dct = { 'summarized_text': 'foo' }
-    log.debug( f'summarize_text_dct, ``{pprint.pformat(summarize_text_dct)}``' )
-    return summarize_text_dct
+    ## validate input -----------------------------------------------
+    text_to_summarize: str = validate_input( text_as_json )
+    ## load model ---------------------------------------------------
+    load_model()
+    # input_text = json.loads( text_as_json )['text_to_summarize']
+    # log.debug( f'input_text, ``{input_text}``' )
+    summarized_text_dct = { 'summary': 'coming' }
+    log.debug( f'summarized_text_dct, ``{pprint.pformat(summarized_text_dct)}``' )
+    return summarized_text_dct
+
+
+## helper functions -------------------------------------------------
+
+
+def validate_input( text_as_json: str ) -> str:
+    """ Validates input.
+        Called by summarize_text() """
+    log.debug( 'validating input' )
+    if not text_as_json:
+        log.info( 'no text_as_json found, will use test Obama re-election speech' )
+        text_to_summarize = TEST_STRING
+    try:
+        text_to_summarize_dct = json.loads( text_as_json )
+    except Exception as e:
+        raise Exception( 'input does not appear to be valid json' )
+    try:
+        text_to_summarize = text_to_summarize_dct['text_to_summarize']
+    except Exception as e:
+        raise Exception( 'input-json missing required "text_to_summarize" key' )
+    log.debug( f'text_to_summarize, ``{text_to_summarize}``' )
+    return text_to_summarize
+
+
+def load_model() -> None:
+    """ Loads model.
+        Called by summarize_text() """
+    log.debug( 'loading model' )
+    llm = Llama( 
+        model_path='../models/ggml-vicuna-13b-4bit-rev1.bin',
+        n_ctx=4000 )
+    log.debug( 'model loaded' )
+
+
+## dundermain -------------------------------------------------------
 
 
 if __name__ == '__main__':
-    ## set up argparser
+    ## set up argparser ---------------------------------------------
     parser = argparse.ArgumentParser( description='summarizes text' )
     parser.add_argument('--text_as_json', type=str, help='json defining text_to_summarize dict-key' )
     args = parser.parse_args()
     log.debug( f'args: {args}' )
-    ## get json-string
+    ## get json-string ----------------------------------------------
     text_as_json = args.text_as_json
-    ## validate
-    try:
-        if text_as_json:
-            json.loads( text_as_json )
-        else:
-            log.debug( 'no text_as_json found' )
-    except Exception as e:
-        raise Exception( 'input does not appear to be valid json' )
-    log.debug( f'text_as_json arg: {text_as_json}' )
-    if text_as_json == None:
-        test_dct = { 'text_to_summarize': TEST_STRING }
-        text_as_json = json.dumps( test_dct )
-    ## get to work
+    ## get to work ---------------------------------------------------
     summarize_text ( text_as_json )
     log.debug( 'done' )
+
+
+# if __name__ == '__main__':
+#     ## set up argparser ---------------------------------------------
+#     parser = argparse.ArgumentParser( description='summarizes text' )
+#     parser.add_argument('--text_as_json', type=str, help='json defining text_to_summarize dict-key' )
+#     args = parser.parse_args()
+#     log.debug( f'args: {args}' )
+#     ## get json-string ----------------------------------------------
+#     text_as_json = args.text_as_json
+#     ## validate -----------------------------------------------------
+#     try:
+#         if text_as_json:
+#             json.loads( text_as_json )
+#         else:
+#             log.debug( 'no text_as_json found' )
+#     except Exception as e:
+#         raise Exception( 'input does not appear to be valid json' )
+#     log.debug( f'text_as_json arg: {text_as_json}' )
+#     if text_as_json == None:
+#         test_dct = { 'text_to_summarize': TEST_STRING }
+#         text_as_json = json.dumps( test_dct )
+#     log.debug( f'final text_as_json, ``{text_as_json}``' )
+#     log.info( 'using obama re-election speech as test' )
+#     ## get to work ---------------------------------------------------
+#     summarize_text ( text_as_json )
+#     log.debug( 'done' )

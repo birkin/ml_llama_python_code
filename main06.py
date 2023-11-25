@@ -114,9 +114,7 @@ def summarize( text_to_summarize: str, LLM, max_tokens_for_summarization=100 ) -
     log.debug( 'starting summarize()' )
     log.debug( f'text_to_summarize, \n\n``{text_to_summarize}``\n\n' )
 
-    1/0
-
-    message = f'Summarize the following text (75-word-maximum) using a neutral tone, describing main themes and topics. The text: {f"{text_to_summarize[0:10]} (end-of-text)"}'
+    message = f'Summarize the following text (75-word-maximum) using a neutral tone, describing main themes and topics. The text: {f"{text_to_summarize} (end-of-text)"}'
     # message = f'In three sentences, summarize the following text using a neutral tone, describing main themes and topics. The text: {text_to_summarize}'
     # message = f'Summarize, in one short sentence, using a neutral tone -- the following text: {text_to_summarize}'
 

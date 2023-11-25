@@ -91,12 +91,16 @@ def block_and_summarize( text_to_summarize: str, LLM ) -> dict:
     #     log.debug( f'appending chunk (size ``{len(chunk)}``) to chunks' )
     #     chunks.append( chunk )
     log.debug( f'chunks, ``{pprint.pformat(chunks)}``' )
+    log.debug( '\n-----\n'.join(f'Element {index}: {element}' for index, element in enumerate(chunks)) )
     log.debug( f'number of chunks, ``{len(chunks)}``' )
+
     ## summarize each chunk -----------------------------------------
     summaries = []
     for chunk in chunks:
         summarized_chunk = summarize( chunk, LLM, max_tokens_for_summarization=200 )
         summaries.append( summarized_chunk )
+    log.debug( f'summaries, ``{pprint.pformat(summaries)}``' )
+    # log.debug( '\n-----\n'.join(f'Element {index}: {element}' for index, element in enumerate(summaries)) )
     ## combine summaries & run final summarization ------------------
     combined_summary = ' '.join( summaries )
     combined_summarization_dict: dict = summarize( combined_summary, LLM, max_tokens_for_summarization=100 )
@@ -107,7 +111,10 @@ def summarize( text_to_summarize: str, LLM, max_tokens_for_summarization=100 ) -
     """ Summarizes text.
         Explanation of model parameters: <https://chat.openai.com/share/e5923e46-4236-4034-9d99-829ab18dbfdc> (chatgpt4, 2023-Nov-25)
         Called by summarize_text() """
-    log.debug( 'summarizing' )
+    log.debug( 'starting summarize()' )
+    log.debug( f'text_to_summarize, \n\n``{text_to_summarize}``\n\n' )
+
+    1/0
 
     message = f'Summarize the following text (75-word-maximum) using a neutral tone, describing main themes and topics. The text: {f"{text_to_summarize[0:10]} (end-of-text)"}'
     # message = f'In three sentences, summarize the following text using a neutral tone, describing main themes and topics. The text: {text_to_summarize}'

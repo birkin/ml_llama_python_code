@@ -114,7 +114,11 @@ def summarize( text_to_summarize: str, LLM, max_tokens_for_summarization=100 ) -
     log.debug( 'starting summarize()' )
     log.debug( f'text_to_summarize, \n\n``{text_to_summarize}``\n\n' )
 
-    message = f'Summarize the following text (75-word-maximum) using a neutral tone, describing main themes and topics. The text: {f"{text_to_summarize} (end-of-text)"}'
+    word_text = '75'
+    if max_tokens_for_summarization == 200:  # we want a more thorough summary for chunks that'll be combined and then summarized
+        word_text = '150'
+
+    message = f'Summarize the following text ({word_text}-word-maximum) using a neutral tone, describing main themes and topics. The text: {f"{text_to_summarize} (end-of-text)"}'
     # message = f'In three sentences, summarize the following text using a neutral tone, describing main themes and topics. The text: {text_to_summarize}'
     # message = f'Summarize, in one short sentence, using a neutral tone -- the following text: {text_to_summarize}'
 

@@ -1,8 +1,5 @@
 """
-Attempts to summarize potentially larger blocks of text, via:
-- breaking them into blocks, 
-- summarizing each block,
-- summarizing all the summaries.
+Switches code into functions.
 """
 
 import argparse, copy, json, logging, pprint

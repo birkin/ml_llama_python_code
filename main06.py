@@ -104,8 +104,11 @@ def block_and_summarize( text_to_summarize: str, LLM ) -> dict:
     ## combine summaries & run final summarization ------------------
     combined_summaries = ''
     for summary in summaries:
-        combined_summaries = f"{combined_summaries} -- {summary['choices'][0]['message']['content']}"
+        combined_summaries = f"{combined_summaries} {summary['choices'][0]['message']['content']}"
     log.debug( f'\n\ncombined_summaries, ``{combined_summaries}``\n\n' )
+    combined_summaries = combined_summaries.replace( 'The text', '...' )
+    combined_summaries = combined_summaries.replace( 'the text describes', '...' )
+    log.debug( f'\n\ncleaned combined_summaries, ``{combined_summaries}``\n\n' )
     combined_summarization_dict: dict = summarize( combined_summaries, LLM, max_tokens_for_summarization=100 )
     return combined_summarization_dict
 

@@ -59,6 +59,7 @@ def block_and_summarize( text_to_summarize: str, LLM ) -> dict:
         - assemble all the summaries together into one string of sentences, and run a summary on that string -- using the original "max_tokens" of 100.
     Called by summarize_text()
     """
+    log.debug( 'starting block_and_summarize()' )
     ## assemble sentences -------------------------------------------
     sentences = sent_tokenize( text_to_summarize[0:10000] )
     log.debug( f'sentences, ``{sentences}``' )
@@ -67,13 +68,24 @@ def block_and_summarize( text_to_summarize: str, LLM ) -> dict:
     chunks = []
     chunk = ''
     for sentence in sentences:
+        log.debug( f'processing sentence, ``{sentence}``' )
         if len(chunk) + len(sentence) < 2000:
-            chunk = chunk + ' ' + sentence
+            log.debug( 'adding sentence to chunk' )
+            chunk += sentence + ' '
+            log.debug( f'chunk with sentence added is now, ``{chunk}``' )
         else:
+            log.debug( f'chunk is full (size ``{len(chunk)}``); adding chunk to chunks, and re-initializing chunk with existing sentence' )
             chunks.append( chunk )
+            log.debug( f'chunks is now, ``{pprint.pformat(chunks)}``' )
+            log.debug( f'number of chunks is now, ``{len(chunks)}``' )
             chunk = sentence + ' '
-        if chunk:
-            chunks.append( chunk )
+            log.debug( f'new chunk is, ``{chunk}``' )
+    if chunk:
+        log.debug( f'appending chunk (size ``{len(chunk)}``) to chunks' )
+        chunks.append( chunk )
+    log.debug( f'chunks, ``{pprint.pformat(chunks)}``' )
+    log.debug( f'number of chunks, ``{len(chunks)}``' )
+    1/0
     ## summarize each chunk -----------------------------------------
     summaries = []
     for chunk in chunks:
@@ -91,9 +103,9 @@ def summarize( text_to_summarize: str, LLM, max_tokens_for_summarization=100 ) -
         Called by summarize_text() """
     log.debug( 'summarizing' )
 
-    # message = f'Summarize the following text (75-word-maximum) using a neutral tone, describing main themes and topics. The text: {f"{text_to_summarize[0:10]} (end-of-text)"}'
+    message = f'Summarize the following text (75-word-maximum) using a neutral tone, describing main themes and topics. The text: {f"{text_to_summarize[0:10]} (end-of-text)"}'
     # message = f'In three sentences, summarize the following text using a neutral tone, describing main themes and topics. The text: {text_to_summarize}'
-    message = f'Summarize, in one short sentence, using a neutral tone -- the following text: {text_to_summarize}'
+    # message = f'Summarize, in one short sentence, using a neutral tone -- the following text: {text_to_summarize}'
 
     log.debug( f'message, ``{message}``' )
     messages = [ {'role': 'user', 'content': message} ]

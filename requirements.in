@@ -3,3 +3,4 @@
 
 
 llama-cpp-python==0.1.39
+nltk==3.8.1

@@ -75,17 +75,23 @@ def block_and_summarize( text_to_summarize: str, LLM ) -> dict:
             log.debug( f'chunk with sentence added is now, ``{chunk}``' )
         else:
             log.debug( f'chunk is full (size ``{len(chunk)}``); adding chunk to chunks, and re-initializing chunk with existing sentence' )
-            chunks.append( chunk )
+            log.debug( f'chunk-check: len(chunks), ``{len(chunks)}``' )
+            if len(chunks) <= 4:
+                log.debug( 'chunk-check: will append this chunk' )
+                chunks.append( chunk )
+            else:
+                log.debug( 'chunk-check: would not append this sixth chunk' )
+        
             log.debug( f'chunks is now, ``{pprint.pformat(chunks)}``' )
             log.debug( f'number of chunks is now, ``{len(chunks)}``' )
             chunk = sentence + ' '
             log.debug( f'new chunk is, ``{chunk}``' )
-    if chunk:
-        log.debug( f'appending chunk (size ``{len(chunk)}``) to chunks' )
-        chunks.append( chunk )
+    log.debug( f"note: at this point we've gone through all our sentences, and have up to five chunks. There may be an additional chunk in process we're ignoring. In this case it is: ``{chunk}``" )
+    # if chunk:
+    #     log.debug( f'appending chunk (size ``{len(chunk)}``) to chunks' )
+    #     chunks.append( chunk )
     log.debug( f'chunks, ``{pprint.pformat(chunks)}``' )
     log.debug( f'number of chunks, ``{len(chunks)}``' )
-    1/0
     ## summarize each chunk -----------------------------------------
     summaries = []
     for chunk in chunks:

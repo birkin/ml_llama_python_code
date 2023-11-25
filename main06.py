@@ -102,9 +102,11 @@ def block_and_summarize( text_to_summarize: str, LLM ) -> dict:
     log.debug( f'summaries, ``{pprint.pformat(summaries)}``' )
     # log.debug( '\n-----\n'.join(f'Element {index}: {element}' for index, element in enumerate(summaries)) )
     ## combine summaries & run final summarization ------------------
-    combined_summary = ' '.join( summaries )
-    log.debug( f'\n\ncombined_summary, ``{combined_summary}``\n\n' )
-    combined_summarization_dict: dict = summarize( combined_summary, LLM, max_tokens_for_summarization=100 )
+    combined_summaries = ''
+    for summary in summaries:
+        combined_summaries = f"{combined_summaries} -- {summary['message']['content']}"
+    log.debug( f'\n\ncombined_summaries, ``{combined_summaries}``\n\n' )
+    combined_summarization_dict: dict = summarize( combined_summaries, LLM, max_tokens_for_summarization=100 )
     return combined_summarization_dict
 
 

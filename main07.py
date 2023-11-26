@@ -61,8 +61,9 @@ def summarize_text( url: str ) -> str:
     #     summarization_dict = summarize( text_to_summarize, LLM )
 
     summary: str = summarization_dict['choices'][0]['message']['content']
-    log.debug( f'summary, ``{summary}``' )
-    return summary
+    cleaned_summary = f'{summary.strip()}...'
+    log.debug( f'cleaned_summary, ``{cleaned_summary}``' )
+    return cleaned_summary
 
 
 ## helper functions -------------------------------------------------

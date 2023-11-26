@@ -9,9 +9,10 @@ from urllib.parse import urlparse
 
 ## imported packages ------------------------------------------------
 import nltk
+import requests
 nltk.download( 'punkt' )
-from llama_cpp import Llama
 from nltk.tokenize import sent_tokenize
+from llama_cpp import Llama
 
 
 logging.basicConfig(
@@ -208,8 +209,8 @@ if __name__ == '__main__':
     parser.add_argument('--url', type=str, help='url to extracted-text datastream' )
     args = parser.parse_args()
     log.debug( f'args: {args}' )
-    ## get json-string ----------------------------------------------
-    url = args.text_as_json
+    ## get text -----------------------------------------------------
+    url = args.url
     ## get to work ---------------------------------------------------
     summarize_text ( url )
     log.debug( 'done' )

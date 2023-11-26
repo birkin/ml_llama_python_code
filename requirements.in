@@ -1,6 +1,8 @@
-## version as of 2024-Nov-22
-# llama-cpp-python==0.2.19
+## version as of 2024-Nov-22:
+##      llama-cpp-python==0.2.19
+##      I'm using older version for compatibility with the old model.
 
 
 llama-cpp-python==0.1.39
 nltk==3.8.1
+requests==2.31.0

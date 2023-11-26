@@ -38,7 +38,7 @@ Thank you so much. Tonight, more than 200 years after a former colony won the ri
 # '''
 
 ## manager function -------------------------------------------------
-def summarize_text( url: str ) -> dict:
+def summarize_text( url: str ) -> str:
     """ Manages summarization.
         Called by dundermain. """
     ## validate input -----------------------------------------------
@@ -59,7 +59,10 @@ def summarize_text( url: str ) -> dict:
     #     summarization_dict = block_and_summarize( text_to_summarize, LLM )
     # else:
     #     summarization_dict = summarize( text_to_summarize, LLM )
-    return summarization_dict
+
+    summary: str = summarization_dict['choices'][0]['message']['content']
+    log.debug( f'summary, ``{summary}``' )
+    return summary
 
 
 ## helper functions -------------------------------------------------

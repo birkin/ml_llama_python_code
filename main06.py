@@ -5,6 +5,11 @@ Attempts to summarize potentially larger blocks of text, via:
 - breaking them into blocks, 
 - summarizing each block,
 - summarizing all the summaries.
+
+Note: there's an error in an assumption below. I'd thought the maximum-limit for the model was 2,000-ish characters,
+but I think it's actually 2,000-ish tokens.
+
+However, the code below, based on taking blocks of 2,000 characters, does work.
 """
 
 import argparse, copy, json, logging, pprint

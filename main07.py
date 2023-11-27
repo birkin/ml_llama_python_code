@@ -67,6 +67,8 @@ def summarize_text( url: str ) -> str:
 
     summary: str = summarization_dict['choices'][0]['message']['content']
     cleaned_summary = f'{summary.strip()}... (auto-summarization of extracted-text)'
+    cleaned_summary = cleaned_summary.replace( '\n', ' ' )
+    cleaned_summary = cleaned_summary.replace( '  ', ' ' )
     log.debug( f'cleaned_summary, ``{cleaned_summary}``' )
     return cleaned_summary
 

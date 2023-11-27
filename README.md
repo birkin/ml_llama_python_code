@@ -68,9 +68,16 @@ To go through Chris Hayes' "[Python with Stanford Alpaca and Vicuna 13B AI model
 
 # Usage
 
-`time python ./main01.py`
-(or other `main__.py` file)
+## main07.py
 
+### usage
+`time python3 ./main07.py --url "https://url/to/storage/test:2etz4x4h/EXTRACTED_TEXT/"`
+
+### output
+
+[26/Nov/2023 18:10:56] DEBUG [main07-summarize_text()::65] cleaned_summary, ``The text describes an event where a group of lecturers, including the speaker, were briefed by government spokesmen about the world view of the United States government. One of the speakers was the Under Secretary of State, Dean Gooderham Acheson, who described the Soviet leaders as "like little boys who enjoy throwing brickbats at other people's greenhouses." The speaker, a naturalized citizen, disagreed with this view and argued that the difference...``
+
+---
 
 ## main04.py output
 

@@ -53,6 +53,7 @@ def summarize_text( url: str ) -> str:
 
     ## get the first 1000 words -------------------------------------
     text_to_summarize = ' '.join( text_to_summarize.split()[0:1000] )  # I want to keep the max-tokens under 2,000
+    # log.debug( f'text_to_summarize, ``{text_to_summarize}``' )
 
     ## summarize ----------------------------------------------------
     max_tokens_for_summarization = 100
@@ -74,68 +75,6 @@ def summarize_text( url: str ) -> str:
 
 
 ## helper functions -------------------------------------------------
-
-
-def block_and_summarize( text_to_summarize: str, LLM ) -> dict:
-    """ Logic (this function is only called if text_to_summarize is greater than 1,000 characters)...
-        - take the first 10,000 characters and split them into roughly equal-sized chunks (keeping complete sentences).
-        - run the summarization on each chunk, with a "max_tokens" of 200. 
-        - assemble all the summaries together into one string of sentences, and run a summary on that string -- using the original "max_tokens" of 100.
-    Called by summarize_text()
-    """
-    log.debug( 'starting block_and_summarize()' )
-    ## assemble sentences -------------------------------------------
-    sentences = sent_tokenize( text_to_summarize[0:10000] )
-    log.debug( f'sentences, ``{sentences}``' )
-    log.debug( f'number of sentences, ``{len(sentences)}``' )
-    ## assemble chunks ----------------------------------------------
-    chunks = []
-    chunk = ''
-    for sentence in sentences:
-        log.debug( f'processing sentence, ``{sentence}``' )
-        if len(chunk) + len(sentence) < 2000:
-            log.debug( 'adding sentence to chunk' )
-            chunk += sentence + ' '
-            log.debug( f'chunk with sentence added is now, ``{chunk}``' )
-        else:
-            log.debug( f'chunk is full (size ``{len(chunk)}``); adding chunk to chunks, and re-initializing chunk with existing sentence' )
-            log.debug( f'chunk-check: len(chunks), ``{len(chunks)}``' )
-            if len(chunks) <= 4:
-                log.debug( 'chunk-check: will append this chunk' )
-                chunks.append( chunk )
-            else:
-                log.debug( 'chunk-check: would not append this sixth chunk' )
-        
-            log.debug( f'chunks is now, ``{pprint.pformat(chunks)}``' )
-            log.debug( f'number of chunks is now, ``{len(chunks)}``' )
-            chunk = sentence + ' '
-            log.debug( f'new chunk is, ``{chunk}``' )
-    log.debug( f"note: at this point we've gone through all our sentences, and have up to five chunks. There may be an additional chunk in process we're ignoring. In this case it is: ``{chunk}``" )
-    # if chunk:
-    #     log.debug( f'appending chunk (size ``{len(chunk)}``) to chunks' )
-    #     chunks.append( chunk )
-    log.debug( f'chunks, ``{pprint.pformat(chunks)}``' )
-    log.debug( '\n-----\n'.join(f'Element {index}: {element}' for index, element in enumerate(chunks)) )
-    log.debug( f'number of chunks, ``{len(chunks)}``' )
-
-    ## summarize each chunk -----------------------------------------
-    summaries = []
-    for chunk in chunks:
-        summarized_chunk = summarize( chunk, LLM, max_tokens_for_summarization=200 )
-        summaries.append( summarized_chunk )
-    log.debug( f'summaries, ``{pprint.pformat(summaries)}``' )
-    # log.debug( '\n-----\n'.join(f'Element {index}: {element}' for index, element in enumerate(summaries)) )
-    ## combine summaries & run final summarization ------------------
-    combined_summaries = ''
-    for summary in summaries:
-        combined_summaries = f"{combined_summaries} {summary['choices'][0]['message']['content']}"
-    log.debug( f'\n\ncombined_summaries, ``{combined_summaries}``\n\n' )
-    combined_summaries = combined_summaries.replace( 'The text describes', '...' )
-    combined_summaries = combined_summaries.replace( 'The text', '...' )
-    combined_summaries = combined_summaries.replace( 'the text describes', '...' )
-    log.debug( f'\n\ncleaned combined_summaries, ``{combined_summaries}``\n\n' )
-    combined_summarization_dict: dict = summarize( combined_summaries, LLM, max_tokens_for_summarization=100 )
-    return combined_summarization_dict
 
 
 def summarize( text_to_summarize: str, LLM, max_tokens_for_summarization=100 ) -> dict:
@@ -187,7 +126,7 @@ def validate_input( url: str ) -> str:
     ## get text -----------------------------------------------------
     r = requests.get( url )
     if r.status_code != 200:
-        raise Exception( 'url did not return a 200 status code' )
+        raise Exception( 'url did not return a 200 status code; instead returned ``{r.status_code}``' )
     byte_response = r.content
     try:
         text_response = byte_response.decode( 'utf-8' )

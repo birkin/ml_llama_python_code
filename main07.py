@@ -51,9 +51,14 @@ def summarize_text( url: str ) -> str:
     word_count = len( text_to_summarize.split() )
     log.debug( f'word_count, ``{word_count}``' )
 
-    ## get the first 1750 words -------------------------------------
+    ## get the first 1000 words -------------------------------------
     text_to_summarize = ' '.join( text_to_summarize.split()[0:1000] )  # I want to keep the max-tokens under 2,000
-    summarization_dict = summarize( text_to_summarize, LLM )
+
+    ## summarize ----------------------------------------------------
+    max_tokens_for_summarization = 100
+    if word_count < 500:
+        max_tokens_for_summarization = 75
+    summarization_dict = summarize( text_to_summarize, LLM, max_tokens_for_summarization )
 
     # if len( text_to_summarize ) > 1000:
     #     summarization_dict = block_and_summarize( text_to_summarize, LLM )

@@ -109,7 +109,7 @@ def summarize( text_to_summarize: str, LLM, max_tokens_for_summarization=100 ) -
     # message = f'Give a three-sentence summary of the following text using a neutral tone, describing main themes and topics. The text: {text_to_summarize}'
     # (title experimentation)
     # message = f'Give a 7-word-max summary (in title-case) of the following text, using a neutral tone: {text_to_summarize}'
-    message = f'What would a good short tile be for following text?: {text_to_summarize}'
+    message = f'What would a good short title be for following text?: {text_to_summarize}'
     log.debug( f'message, ``{message}``' )
     
     ## complete prompt-data -----------------------------------------

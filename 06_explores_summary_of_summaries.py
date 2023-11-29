@@ -10,6 +10,8 @@ Note: there's an error in an assumption below. I'd thought the maximum-limit for
 but I think it's actually 2,000-ish tokens.
 
 However, the code below, based on taking blocks of 2,000 characters, does work.
+
+Also, I tried to make the input-argument requre json -- but that failed on large text-blocks; haven't investigated why.
 """
 
 import argparse, copy, json, logging, pprint
@@ -187,7 +189,7 @@ def validate_input( text_as_json: str ) -> str:
     return text_to_summarize
 
 
-def load_model() -> None:
+def load_model() -> Llama:
     """ Loads model.
         Called by summarize_text() """
     log.debug( 'loading model' )
